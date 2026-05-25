@@ -1,17 +1,29 @@
 const express = require("express");
+
 const router = express.Router();
 
 const Product = require("../models/Product");
+
+
 
 
 // GET PRODUCTS
 
 router.get("/", async (req, res) => {
 
-  const products = await Product.find();
+  try {
 
-  res.json(products);
+    const products = await Product.find();
 
+    res.json(products);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
 });
 
 
@@ -21,12 +33,32 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
 
-  const newProduct = new Product(req.body);
+  try {
 
-  await newProduct.save();
+    const product = new Product({
 
-  res.json(newProduct);
+      name: req.body.name,
 
+      price: req.body.price,
+
+      category: req.body.category,
+
+      image: req.body.image,
+
+    });
+
+    const savedProduct =
+      await product.save();
+
+    res.json(savedProduct);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
 });
 
 
@@ -36,11 +68,25 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
 
-  await Product.findByIdAndDelete(req.params.id);
+  try {
 
-  res.json({ message: "Product Deleted" });
+    await Product.findByIdAndDelete(
+      req.params.id
+    );
 
+    res.json({
+      message: "Product Deleted",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
 });
+
 
 
 

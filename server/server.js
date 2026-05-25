@@ -1,65 +1,65 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
-
-const productRoutes = require("./routes/productRoutes");
-const userRoutes = require("./routes/userRoutes");
 
 const app = express();
-
-
-
-// MIDDLEWARE
 
 app.use(cors());
 app.use(express.json());
 
-
-
-// ROUTES
-
-app.use("/api/products", productRoutes);
-app.use("/api/users", userRoutes);
-
-
-
-// MONGODB CONNECTION
-
-mongoose.connect(process.env.MONGO_URI)
-
-.then(() => {
-
-  console.log("MongoDB Connected");
-
-})
-
-.catch((err) => {
-
-  console.log(err);
-
-});
-
-
-
-
-// TEST ROUTE
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.get("/", (req, res) => {
-
   res.send("API Running");
-
 });
 
+const productSchema = new mongoose.Schema({
+  name: String,
+  price: Number,
+  category: String,
+  image: String,
+});
 
+const Product = mongoose.model("Product", productSchema);
 
+app.get("/api/products", async (req, res) => {
+  const products = await Product.find();
+  res.json(products);
+});
 
-// SERVER
+app.post("/api/products", async (req, res) => {
+  const product = new Product(req.body);
 
-const PORT = 5000;
+  const savedProduct = await product.save();
+
+  res.json(savedProduct);
+});
+
+app.delete("/api/products/:id", async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
+
+  res.json({
+    message: "Product Deleted",
+  });
+});
+
+app.post("/api/auth/login", (req, res) => {
+  res.json({
+    message: "Login Successful",
+  });
+});
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-
   console.log(`Server running on ${PORT}`);
-
 });
