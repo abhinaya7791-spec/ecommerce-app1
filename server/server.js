@@ -53,9 +53,23 @@ app.delete("/api/products/:id", async (req, res) => {
 });
 
 app.post("/api/auth/login", (req, res) => {
-  res.json({
-    message: "Login Successful",
-  });
+
+  const { username, password } = req.body;
+
+  if (username === "admin" && password === "1234") {
+
+    res.json({
+      message: "Login Successful",
+    });
+
+  } else {
+
+    res.status(401).json({
+      message: "Invalid Credentials",
+    });
+
+  }
+
 });
 
 const PORT = process.env.PORT || 5000;
