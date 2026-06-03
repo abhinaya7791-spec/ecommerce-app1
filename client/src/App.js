@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
 
-    fetch("http://ecommerce-app1-ogxr.onrender.com/api/products")
+    fetch("https://ecommerce-app1-ogxr.onrender.com/api/products")
 
       .then((res) => res.json())
 
@@ -55,7 +55,7 @@ function App() {
 
   const deleteProduct = async (id) => {
 
-    await fetch(`http://ecommerce-app1-ogxr.onrender.com/api/products/${id}`, {
+    await fetch(`https://ecommerce-app1-ogxr.onrender.com/api/products/${id}`, {
 
       method: "DELETE"
 
@@ -90,7 +90,7 @@ function App() {
 
     const res = await fetch(
 
-      "http://ecommerce-app1-ogxr.onrender.com/api/products",
+      "https://ecommerce-app1-ogxr.onrender.com/api/products",
 
       {
 
