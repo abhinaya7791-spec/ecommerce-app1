@@ -1,4 +1,4 @@
-# E-Commerce Web App
+E-Commerce Web App
 
 A full-stack ecommerce web application built using:
 
@@ -6,7 +6,17 @@ A full-stack ecommerce web application built using:
 - Backend: Node.js + Express
 - Database: MongoDB
 
-## Features
+Live Demo
+
+https://ecommerce-app1-eblf.vercel.app
+
+Demo Login Credentials
+
+Username: admin
+
+Password: 1234
+
+Features
 
 - User Login & Register
 - Product Listing
@@ -14,24 +24,20 @@ A full-stack ecommerce web application built using:
 - Order Management
 - Admin Dashboard
 
-## Installation
+Installation
 
-### Client
+Client
 
-```bash
 cd client
 npm install
 npm start
-```
 
-### Server
+Server
 
-```bash
 cd server
 npm install
-npm run dev
-```
+npm start
 
-## Author
+Author
 
 Abhinaya
